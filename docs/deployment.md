@@ -47,3 +47,19 @@ The poverty-guideline table in
 HHS publishes the annual notice — add the new year's entry, a citation to the
 Federal Register notice, and tests with the published figures. RAP/IBR/PSLF
 rule parameters live in `packages/engine/src/` with their citations alongside.
+
+## First deploy without the dashboard (script)
+
+`scripts/deploy.sh` deploys via wrangler direct upload — useful for the very
+first deploy or when the git-connect flow isn't set up yet:
+
+```bash
+export CLOUDFLARE_API_TOKEN=...   # token with "Cloudflare Pages — Edit"
+export CLOUDFLARE_ACCOUNT_ID=...
+./scripts/deploy.sh               # preview deploy from current branch
+./scripts/deploy.sh production    # production deploy
+```
+
+It runs the tests, builds, creates the Pages project if needed, and uploads
+`apps/demo/dist`. The dashboard git-connect flow above remains the recommended
+steady state.
