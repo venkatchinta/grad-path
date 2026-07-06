@@ -1,12 +1,25 @@
 {
   "name": "@gradpath/demo",
-  "version": "0.1.0",
   "private": true,
-  "description": "Interactive React demo of the GradPath screening flow (three-step screening, ledger-style UI, PSLF progress tracker, plan comparison).",
+  "version": "0.1.0",
+  "description": "GradPath Repay screening demo — mobile-first PWA, all calculations run on-device.",
   "type": "module",
   "scripts": {
-    "dev": "echo \"TODO: wire up dev server (Vite + React)\"",
-    "build": "echo \"TODO: wire up build\""
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@gradpath/engine": "0.1.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "typescript": "^5.5.0",
+    "vite": "^5.4.0"
   },
   "license": "MIT"
 }

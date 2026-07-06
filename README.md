@@ -21,10 +21,15 @@ competitive landscape once added).
 
 ## Status
 
-Early scaffolding. The Repay stage is the current focus, built around
-`@gradpath/engine` — a TypeScript library for poverty-guideline calculations, Standard
-10-year / IBR / RAP payment calculators, PSLF eligibility screening, and a tolerant
-parser for StudentAid.gov "My Aid Data" exports.
+MVP. The Repay stage is the current focus:
+
+- `@gradpath/engine` — poverty-guideline lookups, Standard 10-year / IBR / RAP
+  payment calculators, PSLF eligibility screening, a tolerant parser for
+  StudentAid.gov "My Aid Data" exports, and a recommendation module with
+  expert-escalation logic. Every result carries citations to official sources.
+- `apps/demo` — a mobile-first PWA with the three-step screening flow. All
+  calculations run on-device; financial data is never uploaded (see
+  `docs/adr-001-platform-and-architecture.md` and `docs/deployment.md`).
 
 Relevant policy context: the SAVE plan is being wound down, income-driven repayment
 plans are phasing out by 2028, and the new Repayment Assistance Plan (RAP) launched
@@ -44,7 +49,9 @@ docs/            Proposal materials, design notes, policy references
 
 ```bash
 npm install
-npm run test --workspace=packages/engine
+npm test                              # engine test suite
+npm run dev --workspace=apps/demo     # run the PWA locally
+npm run build                         # build engine + demo (deployable dist)
 ```
 
 ## License

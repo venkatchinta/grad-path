@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Engine tests
+        run: npm run test --workspace=packages/engine
+      - name: Engine build (typecheck + dist)
+        run: npm run build --workspace=packages/engine
+      - name: Demo build (typecheck + PWA bundle)
+        run: npm run build --workspace=apps/demo
+      - name: Upload demo bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: demo-dist
+          path: apps/demo/dist
+          retention-days: 7

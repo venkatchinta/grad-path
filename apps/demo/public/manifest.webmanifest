@@ -1,0 +1,17 @@
+{
+  "name": "GradPath — Student Loan Repayment Screening",
+  "short_name": "GradPath",
+  "description": "Free, nonprofit repayment plan screening. Your financial data never leaves your device.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8faf8",
+  "theme_color": "#14532d",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
