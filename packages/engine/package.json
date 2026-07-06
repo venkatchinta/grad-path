@@ -1,0 +1,17 @@
+{
+  "name": "@gradpath/engine",
+  "version": "0.1.0",
+  "description": "Deterministic calculation and eligibility engine for the Repay stage (poverty guidelines, Standard/IBR/RAP payment calculators, PSLF screening).",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0"
+  },
+  "license": "MIT"
+}

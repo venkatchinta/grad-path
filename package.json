@@ -1,0 +1,14 @@
+{
+  "name": "gradpath",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Free, AI-powered nonprofit platform for the Apply, Afford, and Repay stages of higher education finance.",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "test": "npm run test --workspaces --if-present"
+  },
+  "license": "MIT"
+}

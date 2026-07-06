@@ -1,0 +1,12 @@
+{
+  "name": "@gradpath/demo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Interactive React demo of the GradPath screening flow (three-step screening, ledger-style UI, PSLF progress tracker, plan comparison).",
+  "type": "module",
+  "scripts": {
+    "dev": "echo \"TODO: wire up dev server (Vite + React)\"",
+    "build": "echo \"TODO: wire up build\""
+  },
+  "license": "MIT"
+}
