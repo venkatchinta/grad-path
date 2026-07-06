@@ -1,4 +1,5 @@
 node_modules/
+.git-broken-*/
 dist/
 build/
 coverage/
@@ -9,4 +10,3 @@ coverage/
 Thumbs.db
 .vscode/
 .idea/
-*.tsbuildinfo
