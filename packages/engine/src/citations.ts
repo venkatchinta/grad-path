@@ -59,6 +59,24 @@ export const CITATIONS = {
     url: "https://www.consumerfinance.gov/paying-for-college/your-financial-path-to-graduation/",
     note: "Award letters are not standardized; some blend loans into 'total aid'. Compare offers on net price, not on the headline award total.",
   },
+  plan529: {
+    id: "irs-pub-970-529",
+    title: "529 qualified education expenses — IRS Publication 970",
+    url: "https://www.irs.gov/publications/p970",
+    note: "529 withdrawals are tax-free only for qualified expenses (tuition, fees, books, computers, and housing up to the school's cost-of-attendance allowance).",
+  },
+  grandparent529: {
+    id: "fafsa-simplification-529",
+    title: "FAFSA Simplification Act — cash support reporting change",
+    url: "https://studentaid.gov/announcements-events/fafsa-simplification",
+    note: "Since the 2024-25 FAFSA, distributions from grandparent-owned 529s no longer count as untaxed student income, so they no longer reduce aid eligibility.",
+  },
+  privateVsFederal: {
+    id: "cfpb-private-vs-federal",
+    title: "Federal vs. private/personal loans — Consumer Financial Protection Bureau",
+    url: "https://www.consumerfinance.gov/ask-cfpb/what-is-the-difference-between-federal-and-private-student-loans-en-545/",
+    note: "Personal and private loans lack federal protections (income-driven plans, forgiveness, discharge). Exhaust federal student loans before any private or personal borrowing.",
+  },
   myAidData: {
     id: "studentaid-my-aid-data",
     title: "StudentAid.gov — My Aid Data export",

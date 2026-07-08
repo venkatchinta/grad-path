@@ -175,6 +175,28 @@ export function FamilyStage(props: {
           </p>
         </section>
 
+        <section className="payer-note">
+          <h2>Paying the loans yourself?</h2>
+          <ul>
+            <li>
+              <strong>Parent PLUS loans are your loans</strong>, not your
+              student's — they have restricted repayment options. Run the Repay
+              screening on them under your own profile; the tool flags Parent
+              PLUS cases for expert review.
+            </li>
+            <li>
+              <strong>Paying your student's Direct loans</strong> is allowed and
+              the payments count as theirs (including for PSLF) — the loan and
+              its repayment plan stay in the student's name.
+            </li>
+            <li>
+              Budget both in the <strong>Afford → Family funding plan</strong>:
+              add your 529s, savings, and monthly contribution to see coverage
+              and the borrowing gap before anyone signs a promissory note.
+            </li>
+          </ul>
+        </section>
+
         <div className="actions">
           <button type="button" className="ghost" onClick={signOut}>
             Sign out

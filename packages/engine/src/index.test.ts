@@ -14,6 +14,8 @@ import {
   recommend,
   analyzeAwardLetter,
   compareAwardLetters,
+  planFunding,
+  dependentFederalLoanCapacity,
 } from "./index.js";
 
 describe("@gradpath/engine", () => {
@@ -241,6 +243,50 @@ describe("award letter comparison (Afford)", () => {
     const privateProjection = cmp.fourYearBorrowing.find((f) => f.school === "Private College");
     expect(privateProjection).toMatchObject({ projected: 128_000, exceedsAggregateLimit: true });
     expect(cmp.citations.length).toBeGreaterThan(0);
+  });
+});
+
+describe("funding plan (budget)", () => {
+  it("computes federal loan capacity per the dependent schedule", () => {
+    expect(dependentFederalLoanCapacity(1)).toBe(5_500);
+    expect(dependentFederalLoanCapacity(2)).toBe(12_000);
+    expect(dependentFederalLoanCapacity(4)).toBe(27_000);
+    expect(dependentFederalLoanCapacity(8)).toBe(31_000); // aggregate cap
+  });
+
+  it("covers cost with savings + 529 + monthly contributions", () => {
+    const result = planFunding({
+      annualNetPrice: 18_000,
+      sources: [
+        { kind: "529", label: "NY 529", amount: 40_000, owner: "parent" },
+        { kind: "savings", label: "Savings", amount: 8_000 },
+        { kind: "monthly-contribution", label: "From income", amount: 300 },
+      ],
+    });
+    expect(result.totalCost).toBe(72_000);
+    expect(result.fundsAvailable).toBe(40_000 + 8_000 + 300 * 48); // 62,400
+    expect(result.coverageRatio).toBeCloseTo(62_400 / 72_000, 5);
+    expect(result.gapBeforeBorrowing).toBe(9_600);
+    expect(result.federalLoansNeeded).toBe(9_600); // within 27,000 capacity
+    expect(result.gapAfterFederalLoans).toBe(0);
+  });
+
+  it("warns on personal loans, 529 rules, grandparent 529, and residual gaps", () => {
+    const result = planFunding({
+      annualNetPrice: 44_000,
+      sources: [
+        { kind: "529", label: "Grandma's 529", amount: 20_000, owner: "grandparent" },
+        { kind: "personal-loan", label: "HELOC", amount: 30_000 },
+      ],
+    });
+    // 176,000 cost − 20,000 = 156,000 gap; 27,000 federal → 129,000 remains
+    expect(result.gapAfterFederalLoans).toBe(129_000);
+    const text = result.warnings.join(" ");
+    expect(text).toMatch(/personal\/private borrowing/);
+    expect(text).toMatch(/qualified expenses/);
+    expect(text).toMatch(/grandparent 529s/i);
+    expect(text).toMatch(/\$129,000 gap/);
+    expect(result.citations.map((c) => c.id)).toContain("cfpb-private-vs-federal");
   });
 });
 

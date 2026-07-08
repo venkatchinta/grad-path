@@ -133,7 +133,14 @@ export function App() {
           />
         )}
         {state.stage === "afford" && (
-          <AffordStage letters={state.awardLetters} onChange={setAwardLetters} />
+          <AffordStage
+            letters={state.awardLetters}
+            onChange={setAwardLetters}
+            fundingSources={state.fundingSources}
+            onFundingChange={(fundingSources) =>
+              setState((s) => ({ ...s, fundingSources }))
+            }
+          />
         )}
         {state.stage === "repay" && (
           <RepayStage

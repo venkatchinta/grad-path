@@ -1,4 +1,9 @@
-import type { AwardLetterInput, EmployerType, ParsedLoan } from "@gradpath/engine";
+import type {
+  AwardLetterInput,
+  EmployerType,
+  FundingSource,
+  ParsedLoan,
+} from "@gradpath/engine";
 
 export type Stage = "home" | "apply" | "afford" | "repay" | "auth" | "family";
 
@@ -72,6 +77,8 @@ export interface AppState {
   awardLetters: AwardLetterInput[];
   /** Apply: ids of completed checklist items. */
   applyDone: string[];
+  /** Afford: family funding sources (529s, savings, monthly, personal). */
+  fundingSources: FundingSource[];
   auth: AuthState;
 }
 
@@ -85,6 +92,7 @@ const DEFAULTS: AppState = {
   loans: [],
   awardLetters: [],
   applyDone: [],
+  fundingSources: [],
   auth: DEFAULT_AUTH,
 };
 
@@ -100,6 +108,7 @@ export function loadState(): AppState {
         loans: Array.isArray(saved.loans) ? saved.loans : [],
         awardLetters: Array.isArray(saved.awardLetters) ? saved.awardLetters : [],
         applyDone: Array.isArray(saved.applyDone) ? saved.applyDone : [],
+        fundingSources: Array.isArray(saved.fundingSources) ? saved.fundingSources : [],
         auth: { ...DEFAULT_AUTH, ...saved.auth },
       };
     }

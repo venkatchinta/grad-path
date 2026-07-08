@@ -18,6 +18,10 @@ references (SAVE plan wind-down, IDR phase-out by 2028, RAP launch July 1, 2026)
   optional Google/Apple sign-in, parent→student invites, consent-first
   summaries-only sharing, Supabase plan, and the implementation checklist
   surfaced by the mocked workflow.
+- [ADR-005: Family Finances — Who Pays, and the Funding Plan](./adr-005-family-finances-funding-plan.md) —
+  Parent PLUS vs. paying the student's loans, the 529/savings/monthly funding
+  plan with federal-loan-first gap analysis, and why bank account linking is
+  deliberately deferred.
 - [Production Plan](./production-plan.md) — phase gates from deployable MVP to
   launched product: infra, private beta with expert review, public launch,
   post-launch roadmap, standing operations, risk register.
