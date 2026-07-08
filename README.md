@@ -21,13 +21,22 @@ competitive landscape once added).
 
 ## Status
 
-MVP. The Repay stage is the current focus:
+MVP covering all three stages:
 
-- `@gradpath/engine` — poverty-guideline lookups, Standard 10-year / IBR / RAP
-  payment calculators, PSLF eligibility screening, a tolerant parser for
-  StudentAid.gov "My Aid Data" exports, and a recommendation module with
-  expert-escalation logic. Every result carries citations to official sources.
-- `apps/demo` — a mobile-first PWA with the three-step screening flow. All
+- **Apply** — deadline-by-deadline application checklist (college list, FAFSA,
+  early/regular deadlines, decision day) with progress saved on-device.
+- **Afford** — award-letter comparison on real net price (COA minus gift aid),
+  out-of-pocket math, loans-vs-gift-aid warnings, and a four-year borrowing
+  outlook against federal Direct Loan limits.
+- **Repay** — the deepest stage: plan matching (Standard 10-year / IBR / RAP),
+  PSLF screening, "My Aid Data" import, and expert-escalation flags.
+
+Built on:
+
+- `@gradpath/engine` — deterministic calculators and eligibility rules; every
+  result carries citations to official sources (CFR, Pub. L. 119-21, HHS,
+  StudentAid.gov, CFPB).
+- `apps/demo` — a mobile-first PWA with a stage-picker home screen. All
   calculations run on-device; financial data is never uploaded (see
   `docs/adr-001-platform-and-architecture.md` and `docs/deployment.md`).
 

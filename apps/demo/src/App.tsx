@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
-import { ProfileStep } from "./steps/ProfileStep.js";
-import { LoansStep } from "./steps/LoansStep.js";
-import { ResultsStep } from "./steps/ResultsStep.js";
+import { Home } from "./stages/Home.js";
+import { ApplyStage } from "./stages/ApplyStage.js";
+import { AffordStage } from "./stages/AffordStage.js";
+import { RepayStage } from "./stages/RepayStage.js";
 import {
   clearState,
   loadState,
   saveState,
   type AppState,
   type Profile,
+  type Stage,
 } from "./state.js";
-import type { ParsedLoan } from "@gradpath/engine";
+import type { AwardLetterInput, ParsedLoan } from "@gradpath/engine";
 
-const STEP_LABELS = ["About you", "Your loans", "Results"] as const;
+const STAGE_TAGLINES: Record<Stage, string> = {
+  home: "Apply · Afford · Repay",
+  apply: "Apply — application checklist",
+  afford: "Afford — compare award letters",
+  repay: "Repay — repayment screening",
+};
 
 export function App() {
   const [state, setState] = useState<AppState>(loadState);
@@ -20,9 +27,13 @@ export function App() {
     saveState(state);
   }, [state]);
 
+  const setStage = (stage: Stage) => setState((s) => ({ ...s, stage }));
   const setStep = (step: AppState["step"]) => setState((s) => ({ ...s, step }));
   const setProfile = (profile: Profile) => setState((s) => ({ ...s, profile }));
   const setLoans = (loans: ParsedLoan[]) => setState((s) => ({ ...s, loans }));
+  const setAwardLetters = (awardLetters: AwardLetterInput[]) =>
+    setState((s) => ({ ...s, awardLetters }));
+  const setApplyDone = (applyDone: string[]) => setState((s) => ({ ...s, applyDone }));
 
   const startOver = () => {
     clearState();
@@ -33,55 +44,44 @@ export function App() {
     <div className="app">
       <header className="masthead">
         <div className="masthead-inner">
+          {state.stage !== "home" && (
+            <button
+              type="button"
+              className="home-btn"
+              aria-label="Back to stage overview"
+              onClick={() => setStage("home")}
+            >
+              ←
+            </button>
+          )}
           <img src="/icon.svg" alt="" width={28} height={28} />
           <div>
             <strong>GradPath</strong>
-            <span className="tagline">Repayment screening</span>
+            <span className="tagline">{STAGE_TAGLINES[state.stage]}</span>
           </div>
         </div>
       </header>
 
-      <nav className="stepper" aria-label="Progress">
-        <ol>
-          {STEP_LABELS.map((label, i) => (
-            <li
-              key={label}
-              aria-current={state.step === i ? "step" : undefined}
-              className={i < state.step ? "done" : i === state.step ? "current" : ""}
-            >
-              <button
-                type="button"
-                disabled={i > state.step}
-                onClick={() => setStep(i as AppState["step"])}
-              >
-                <span className="step-num">{i + 1}</span> {label}
-              </button>
-            </li>
-          ))}
-        </ol>
-      </nav>
-
       <main>
-        {state.step === 0 && (
-          <ProfileStep
-            profile={state.profile}
-            onChange={setProfile}
-            onNext={() => setStep(1)}
+        {state.stage === "home" && <Home onSelect={setStage} />}
+        {state.stage === "apply" && (
+          <ApplyStage
+            done={state.applyDone}
+            onChange={setApplyDone}
+            onGoAfford={() => setStage("afford")}
           />
         )}
-        {state.step === 1 && (
-          <LoansStep
-            loans={state.loans}
-            onChange={setLoans}
-            onBack={() => setStep(0)}
-            onNext={() => setStep(2)}
-          />
+        {state.stage === "afford" && (
+          <AffordStage letters={state.awardLetters} onChange={setAwardLetters} />
         )}
-        {state.step === 2 && (
-          <ResultsStep
+        {state.stage === "repay" && (
+          <RepayStage
+            step={state.step}
             profile={state.profile}
             loans={state.loans}
-            onBack={() => setStep(1)}
+            setStep={setStep}
+            setProfile={setProfile}
+            setLoans={setLoans}
             onStartOver={startOver}
           />
         )}

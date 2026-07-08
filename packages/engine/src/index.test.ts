@@ -12,6 +12,8 @@ import {
   parseMyAidData,
   summarizeLoans,
   recommend,
+  analyzeAwardLetter,
+  compareAwardLetters,
 } from "./index.js";
 
 describe("@gradpath/engine", () => {
@@ -201,6 +203,44 @@ describe("My Aid Data parser", () => {
     expect(summary.balance).toBe(40_000);
     expect(summary.interestRate).toBeCloseTo(0.065, 5);
     expect(summarizeLoans([])).toEqual({ balance: 0, interestRate: 0 });
+  });
+});
+
+describe("award letter comparison (Afford)", () => {
+  const stateSchool = {
+    school: "State U",
+    costOfAttendance: { tuitionAndFees: 12_000, housingAndFood: 13_000, otherCosts: 3_000 },
+    giftAid: 10_000,
+    loansOffered: 5_500,
+    workStudy: 2_000,
+  };
+  const privateSchool = {
+    school: "Private College",
+    costOfAttendance: { tuitionAndFees: 58_000, housingAndFood: 16_000 },
+    giftAid: 30_000,
+    loansOffered: 32_000,
+  };
+
+  it("computes net price and out-of-pocket correctly", () => {
+    const a = analyzeAwardLetter(stateSchool);
+    expect(a.costOfAttendance).toBe(28_000);
+    expect(a.netPrice).toBe(18_000); // COA − gift aid
+    expect(a.outOfPocket).toBe(10_500); // net − loans − work-study
+  });
+
+  it("warns when loans dominate the package or exceed federal limits", () => {
+    const a = analyzeAwardLetter(privateSchool);
+    expect(a.warnings.join(" ")).toMatch(/half of this "aid" is loans/);
+    expect(a.warnings.join(" ")).toMatch(/exceed the first-year federal Direct Loan limit/);
+  });
+
+  it("ranks schools by net price and projects four-year borrowing", () => {
+    const cmp = compareAwardLetters([privateSchool, stateSchool]);
+    expect(cmp.lowestNetPriceSchool).toBe("State U");
+    expect(cmp.analyses.map((a) => a.school)).toEqual(["State U", "Private College"]);
+    const privateProjection = cmp.fourYearBorrowing.find((f) => f.school === "Private College");
+    expect(privateProjection).toMatchObject({ projected: 128_000, exceedsAggregateLimit: true });
+    expect(cmp.citations.length).toBeGreaterThan(0);
   });
 });
 
