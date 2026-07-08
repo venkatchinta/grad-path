@@ -1,6 +1,42 @@
 import type { AwardLetterInput, EmployerType, ParsedLoan } from "@gradpath/engine";
 
-export type Stage = "home" | "apply" | "afford" | "repay";
+export type Stage = "home" | "apply" | "afford" | "repay" | "auth" | "family";
+
+export type Role = "student" | "parent";
+export type Provider = "google" | "apple";
+
+export interface MockUser {
+  name: string;
+  email: string;
+  provider: Provider;
+  role: Role;
+}
+
+export interface Invite {
+  code: string;
+  sentTo: string;
+  status: "pending" | "accepted";
+}
+
+/**
+ * DEMO MOCK: the whole auth/family model is simulated on-device to design the
+ * workflow before building the real backend (ADR-004). Nothing is sent
+ * anywhere; "sign-in" creates a local record only.
+ */
+export interface AuthState {
+  user?: MockUser;
+  /** Parent side: invites issued to students. */
+  invites: Invite[];
+  /** Student side: the family invite code this device accepted. */
+  joinedFamilyCode?: string;
+  /** Student consent: share progress summaries (never raw finances). */
+  shareWithFamily: boolean;
+}
+
+export const DEFAULT_AUTH: AuthState = {
+  invites: [],
+  shareWithFamily: false,
+};
 
 export interface Profile {
   agi: number;
@@ -36,6 +72,7 @@ export interface AppState {
   awardLetters: AwardLetterInput[];
   /** Apply: ids of completed checklist items. */
   applyDone: string[];
+  auth: AuthState;
 }
 
 // All persistence is on-device only (localStorage); nothing is sent anywhere.
@@ -48,6 +85,7 @@ const DEFAULTS: AppState = {
   loans: [],
   awardLetters: [],
   applyDone: [],
+  auth: DEFAULT_AUTH,
 };
 
 export function loadState(): AppState {
@@ -62,6 +100,7 @@ export function loadState(): AppState {
         loans: Array.isArray(saved.loans) ? saved.loans : [],
         awardLetters: Array.isArray(saved.awardLetters) ? saved.awardLetters : [],
         applyDone: Array.isArray(saved.applyDone) ? saved.applyDone : [],
+        auth: { ...DEFAULT_AUTH, ...saved.auth },
       };
     }
   } catch {

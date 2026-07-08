@@ -14,6 +14,10 @@ references (SAVE plan wind-down, IDR phase-out by 2028, RAP launch July 1, 2026)
 - [ADR-003: Distribution for Early Testing and Validation](./adr-003-early-testing-distribution.md) —
   beta by URL instead of app stores, tester recruitment, validation questions,
   eventual TestFlight/Play Console path.
+- [ADR-004: Accounts and Family Linking](./adr-004-accounts-family-linking.md) —
+  optional Google/Apple sign-in, parent→student invites, consent-first
+  summaries-only sharing, Supabase plan, and the implementation checklist
+  surfaced by the mocked workflow.
 - [Production Plan](./production-plan.md) — phase gates from deployable MVP to
   launched product: infra, private beta with expert review, public launch,
   post-launch roadmap, standing operations, risk register.
