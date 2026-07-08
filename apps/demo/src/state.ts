@@ -1,4 +1,6 @@
-import type { EmployerType, ParsedLoan } from "@gradpath/engine";
+import type { AwardLetterInput, EmployerType, ParsedLoan } from "@gradpath/engine";
+
+export type Stage = "home" | "apply" | "afford" | "repay";
 
 export interface Profile {
   agi: number;
@@ -25,29 +27,47 @@ export const DEFAULT_PROFILE: Profile = {
 };
 
 export interface AppState {
+  stage: Stage;
+  /** Repay flow position. */
   step: 0 | 1 | 2;
   profile: Profile;
   loans: ParsedLoan[];
+  /** Afford: award letters entered so far. */
+  awardLetters: AwardLetterInput[];
+  /** Apply: ids of completed checklist items. */
+  applyDone: string[];
 }
 
 // All persistence is on-device only (localStorage); nothing is sent anywhere.
 const STORAGE_KEY = "gradpath-screening-v1";
 
+const DEFAULTS: AppState = {
+  stage: "home",
+  step: 0,
+  profile: DEFAULT_PROFILE,
+  loans: [],
+  awardLetters: [],
+  applyDone: [],
+};
+
 export function loadState(): AppState {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
-      const saved = JSON.parse(raw) as AppState;
+      const saved = JSON.parse(raw) as Partial<AppState>;
       return {
+        stage: saved.stage ?? "home",
         step: saved.step ?? 0,
         profile: { ...DEFAULT_PROFILE, ...saved.profile },
         loans: Array.isArray(saved.loans) ? saved.loans : [],
+        awardLetters: Array.isArray(saved.awardLetters) ? saved.awardLetters : [],
+        applyDone: Array.isArray(saved.applyDone) ? saved.applyDone : [],
       };
     }
   } catch {
     /* corrupted or unavailable storage falls through to defaults */
   }
-  return { step: 0, profile: DEFAULT_PROFILE, loans: [] };
+  return structuredClone(DEFAULTS);
 }
 
 export function saveState(state: AppState): void {
@@ -71,4 +91,11 @@ export const fmtUsd = (n: number): string =>
     style: "currency",
     currency: "USD",
     maximumFractionDigits: 2,
+  });
+
+export const fmtUsd0 = (n: number): string =>
+  n.toLocaleString("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
   });

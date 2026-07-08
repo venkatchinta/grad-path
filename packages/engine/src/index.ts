@@ -44,3 +44,11 @@ export {
   type Recommendation,
   type RecommendationInput,
 } from "./recommend.js";
+export {
+  analyzeAwardLetter,
+  compareAwardLetters,
+  DEPENDENT_UNDERGRAD_LOAN_LIMITS,
+  type AwardLetterInput,
+  type AwardAnalysis,
+  type AwardComparison,
+} from "./afford.js";

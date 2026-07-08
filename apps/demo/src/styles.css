@@ -75,6 +75,15 @@ body {
   display: block;
   font-size: 1.05rem;
 }
+.home-btn {
+  background: none;
+  border: 1px solid rgba(248, 250, 248, 0.35);
+  color: var(--brand-ink);
+  border-radius: 8px;
+  min-height: 36px;
+  padding: 0.2rem 0.6rem;
+  font-size: 1rem;
+}
 .tagline {
   font-size: 0.75rem;
   opacity: 0.85;
@@ -416,6 +425,100 @@ button.ghost {
 }
 .sources a {
   color: inherit;
+}
+
+/* Stage picker (home) */
+.stage-cards {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+.stage-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-align: left;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.stage-card:hover,
+.stage-card:focus-visible {
+  border-color: var(--brand);
+}
+.stage-emoji {
+  font-size: 1.6rem;
+}
+.stage-text {
+  flex: 1;
+  min-width: 0;
+}
+.stage-text strong {
+  display: block;
+  font-size: 1rem;
+}
+.stage-blurb {
+  display: block;
+  font-size: 0.83rem;
+  color: var(--text-2);
+  margin-top: 0.15rem;
+}
+.stage-go {
+  color: var(--muted);
+  font-size: 1.2rem;
+}
+
+/* Apply checklist */
+.checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.checklist li {
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.checklist li:last-child {
+  border-bottom: 0;
+}
+.checklist .check {
+  margin: 0.25rem 0;
+}
+.checklist input:checked + span {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+.item-detail {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-2);
+  text-decoration: none;
+}
+.checklist a {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: var(--good-text);
+}
+.inline-link {
+  display: block;
+  border: 0;
+  background: none;
+  padding: 0.2rem 0;
+  min-height: 0;
+  color: var(--good-text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: left;
+}
+
+/* Afford breakdown table inside plan tiles */
+.breakdown {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+.breakdown td {
+  padding: 0.3rem 0.2rem;
 }
 
 .privacy-footer {

@@ -41,6 +41,24 @@ export const CITATIONS = {
     url: "https://www.ecfr.gov/current/title-34/subtitle-B/chapter-VI/part-685/subpart-B/section-685.219",
     note: "120 qualifying payments on Direct Loans while employed full-time by a qualifying public service employer.",
   },
+  netPrice: {
+    id: "net-price-hea-132",
+    title: "Net price definition, HEA §132 / College Scoring — StudentAid.gov",
+    url: "https://studentaid.gov/complete-aid-process/how-calculated",
+    note: "Net price = cost of attendance minus gift aid (grants and scholarships). Loans and work-study are not gift aid — they are money you repay or earn.",
+  },
+  loanLimits: {
+    id: "loan-limits-34cfr685-203",
+    title: "Direct Loan annual/aggregate limits, 34 CFR 685.203",
+    url: "https://studentaid.gov/understand-aid/types/loans/subsidized-unsubsidized",
+    note: "Dependent undergraduates: $5,500 year 1, $6,500 year 2, $7,500 years 3+; $31,000 aggregate (max $23,000 subsidized). Borrowing beyond these limits requires Parent PLUS or private loans.",
+  },
+  awardLetterCompare: {
+    id: "cfpb-grad-path",
+    title: "Your Financial Path to Graduation — Consumer Financial Protection Bureau",
+    url: "https://www.consumerfinance.gov/paying-for-college/your-financial-path-to-graduation/",
+    note: "Award letters are not standardized; some blend loans into 'total aid'. Compare offers on net price, not on the headline award total.",
+  },
   myAidData: {
     id: "studentaid-my-aid-data",
     title: "StudentAid.gov — My Aid Data export",
