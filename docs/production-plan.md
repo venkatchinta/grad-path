@@ -28,6 +28,13 @@ from student-loan communities, financial aid offices, and PSLF-heavy
 professions. Run 5–10 moderated sessions first — watch someone import their
 own "My Aid Data" file on their own phone.
 
+In parallel, recruit **one pilot partner** — a high-school counseling office,
+a college-access nonprofit, or a community group with 20–50 students/families.
+A structured pilot beats diffuse beta signups: the partner supplies motivated
+users and a feedback channel, and the pilot's outcomes (families served,
+decisions made with the tool) become the evidence base for a first grant
+application.
+
 **Correctness work (the launch blocker):**
 
 - [ ] Verify the 2026 HHS poverty guidelines and add the table year
@@ -37,6 +44,10 @@ own "My Aid Data" file on their own phone.
 - [ ] Have at least one financial-aid professional (e.g. TISLA-adjacent
       reviewer or a university FA officer) review every engine rule against
       its citation.
+- [ ] Convert that reviewer (or recruit another) into a **named volunteer
+      expert advisor**: the standing human destination for the engine's
+      escalation flags, and the person who makes "expert-reviewed" an ongoing
+      truth rather than a one-time gate.
 - [ ] Cross-check 10+ real borrower cases: engine output vs. servicer
       statements / StudentAid.gov Loan Simulator.
 
@@ -49,11 +60,22 @@ own "My Aid Data" file on their own phone.
 
 **Legal/organizational (can run in parallel):**
 
-- [ ] File 501(c)(3) (unlocks Apple fee waiver, Project Galileo, cloud
-      credits).
+- [ ] Decide the entity path: **fiscal sponsorship** (weeks — an established
+      sponsor lends its 501(c)(3) status for a fee, unlocking grants and
+      donations quickly) vs. filing our own 501(c)(3) (12+ months but
+      permanent). Recommended: sign with a fiscal sponsor now, file our own
+      in parallel.
 - [ ] Terms of use + privacy policy reviewed by a lawyer — the privacy policy
-      is short because we hold nothing, but it must exist.
+      is short because we hold nothing, but it must exist. Nonprofit legal
+      clinics often do this pro bono.
 - [ ] Replace the personal contact in `SECURITY.md` with a project address.
+
+Note on licensing: the MIT license covers the **code**, not the **service**.
+It disclaims warranty for people who reuse our code, but it does not reduce
+the operating entity's obligations under consumer-protection or privacy law,
+and it is not a liability shield toward users of the hosted site — that
+protection comes from the service-level terms of use, disclaimers, the
+data-minimization architecture, and insurance.
 
 **Exit:** the four validation questions in ADR-003 answered yes; zero known
 wrong-number bugs; disclaimer + policies in place.
@@ -69,6 +91,8 @@ wrong-number bugs; disclaimer + policies in place.
 - [ ] Privacy-respecting analytics (Plausible or Umami) on landing/results
       funnels only — never on data-entry pages.
 - [ ] Uptime monitoring (e.g. a free ping service) + a status contact.
+- [ ] General liability / D&O insurance for the entity once real users are on
+      the public site (fiscal sponsors often bundle this — ask first).
 - [ ] Content pages: About, Methodology (how every number is computed, with
       the citation list), FAQ.
 - [ ] Search Console + sitemap for the guidance content.
@@ -85,11 +109,16 @@ wrong-number bugs; disclaimer + policies in place.
 2. **SAI estimator** in Afford (Student Aid Index worksheet math, citable to
    the FAFSA Simplification Act tables) — turns "FAFSA assistance" from a
    checklist item into a calculator.
-3. **Scholarship matching** — needs a data source decision (open datasets vs.
+3. **School lookup via the College Scorecard API** (free key from
+   api.data.gov) — prefill cost-of-attendance and outcomes data in Afford so
+   families compare offers against a school's published net price and
+   completion rates.
+4. **Scholarship matching** — needs a data source decision (open datasets vs.
    partnerships); keep student-direct, no lead-gen.
-4. **Accounts/sync** via Supabase (ADR-001 Phase 2) — only when beta feedback
-   demands cross-device.
-5. **Native app evaluation** (ADR-001/003 Phase 3) — the trigger is demand
+5. **Accounts/sync** via Supabase (ADR-001 Phase 2 / ADR-004) — only when
+   beta feedback demands cross-device or the family workflow graduates from
+   its mock.
+6. **Native app evaluation** (ADR-001/003 Phase 3) — the trigger is demand
    for recertification-deadline push reminders, not general preference.
 
 ## Standing operations
