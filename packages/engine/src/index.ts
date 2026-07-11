@@ -45,6 +45,14 @@ export {
   type RecommendationInput,
 } from "./recommend.js";
 export {
+  planFunding,
+  dependentFederalLoanCapacity,
+  type FundingKind,
+  type FundingSource,
+  type FundingPlanInput,
+  type FundingPlanResult,
+} from "./budget.js";
+export {
   analyzeAwardLetter,
   compareAwardLetters,
   DEPENDENT_UNDERGRAD_LOAN_LIMITS,

@@ -1,5 +1,10 @@
 import { useMemo, useState } from "react";
-import { compareAwardLetters, type AwardLetterInput } from "@gradpath/engine";
+import {
+  compareAwardLetters,
+  type AwardLetterInput,
+  type FundingSource,
+} from "@gradpath/engine";
+import { FundingPlan } from "./FundingPlan.js";
 import { fmtUsd0 } from "../state.js";
 
 const EMPTY_FORM = {
@@ -15,6 +20,8 @@ const EMPTY_FORM = {
 export function AffordStage(props: {
   letters: AwardLetterInput[];
   onChange: (letters: AwardLetterInput[]) => void;
+  fundingSources: FundingSource[];
+  onFundingChange: (sources: FundingSource[]) => void;
 }) {
   const [form, setForm] = useState(EMPTY_FORM);
   const num = (v: string) => Math.max(0, Number(v) || 0);
@@ -195,6 +202,15 @@ export function AffordStage(props: {
               </tbody>
             </table>
           </section>
+
+          <FundingPlan
+            letters={props.letters}
+            netPriceBySchool={
+              new Map(comparison.analyses.map((a) => [a.school, a.netPrice]))
+            }
+            sources={props.fundingSources}
+            onChange={props.onFundingChange}
+          />
 
           <section className="sources">
             <h2>Sources</h2>
