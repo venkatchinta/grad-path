@@ -1,0 +1,4 @@
+# Private beta — do not index any part of the site yet.
+# Remove this file (or switch to "Allow: /") at public launch.
+User-agent: *
+Disallow: /

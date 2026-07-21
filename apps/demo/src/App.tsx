@@ -52,6 +52,11 @@ export function App() {
 
   return (
     <div className="app">
+      <div className="beta-banner" role="note">
+        <strong>Private beta.</strong> These are screening estimates under expert
+        review — not financial advice or an official determination. Always verify
+        with StudentAid.gov and your servicer.
+      </div>
       <header className="masthead">
         <div className="masthead-inner">
           {state.stage !== "home" && (

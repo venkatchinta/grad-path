@@ -6,3 +6,6 @@
   X-Frame-Options: DENY
   Referrer-Policy: no-referrer
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  # Private beta: instruct search engines not to index, even via a direct link.
+  # Remove this line at public launch (along with robots.txt Disallow).
+  X-Robots-Tag: noindex, nofollow

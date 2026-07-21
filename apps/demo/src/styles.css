@@ -59,6 +59,19 @@ body {
   flex-direction: column;
 }
 
+/* Beta banner */
+.beta-banner {
+  background: #7c2d12;
+  color: #fff7ed;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  padding: 0.5rem 1rem;
+  text-align: center;
+}
+.beta-banner strong {
+  color: #fff;
+}
+
 /* Masthead */
 .masthead {
   background: var(--brand);

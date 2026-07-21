@@ -14,9 +14,10 @@ security and privacy as product features.
 
 ## Reporting a vulnerability
 
-Please email **venkatchinta.net@gmail.com** with details and reproduction
-steps. Do not open a public issue for security reports. We aim to acknowledge
-reports within 72 hours.
+Please report privately via GitHub's **[private vulnerability reporting](https://github.com/venkatchinta/grad-path/security/advisories/new)**
+(Security tab → Report a vulnerability). Once the custom domain is live,
+**security@gradpath.org** will also be monitored. Do not open a public issue
+for security reports. We aim to acknowledge reports within 72 hours.
 
 ## Scope
 
