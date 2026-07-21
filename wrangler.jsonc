@@ -1,0 +1,20 @@
+{
+  // Cloudflare deploy config for the GradPath static PWA.
+  //
+  // This repo is an npm workspace (monorepo). Cloudflare's Workers build runs
+  // `npx wrangler deploy` from the repo root, where wrangler cannot auto-detect
+  // which app to ship. This config resolves that: it deploys the built demo as
+  // a static-assets Worker (no server code — `assets` with no `main`), which
+  // serves apps/demo/dist and honors the _headers file (CSP etc.) just like
+  // Cloudflare Pages.
+  //
+  // Build command (set in the Cloudflare dashboard):
+  //   npm run build --workspace=apps/demo
+  // Deploy command (dashboard default works as-is):
+  //   npx wrangler deploy
+  "name": "gradpath",
+  "compatibility_date": "2026-07-01",
+  "assets": {
+    "directory": "./apps/demo/dist"
+  }
+}
