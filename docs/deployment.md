@@ -4,6 +4,37 @@ The MVP is a static PWA (ADR-001): no servers, no databases, no secrets in the
 app. Deploying means publishing `apps/demo/dist` to a static host and letting
 the edge apply the security headers in `apps/demo/public/_headers`.
 
+## Current deployment
+
+Live (private beta): **https://grad-path.venkatchinta-net.workers.dev/**
+
+This is a Cloudflare **Workers** project (created via "import a repository"),
+not classic Pages. It builds with `npm run build --workspace=apps/demo` and
+deploys with `npx wrangler deploy`, which reads the root `wrangler.jsonc` and
+publishes `apps/demo/dist` as a static-assets Worker (honoring `_headers`).
+
+**Beta lockdown (in effect):** the app ships `robots.txt` (Disallow: /), a
+`noindex, nofollow` meta tag, and an `X-Robots-Tag: noindex` header, plus a
+"Private beta" banner in the UI. Search engines are told not to index the site
+even via a direct link. These are removed at public launch (see the checklist
+in `production-plan.md`). Note: robots directives stop indexing, not access —
+gate access with Cloudflare Access below so the URL isn't openly usable.
+
+### Gate access with Cloudflare Access (do this in the dashboard)
+
+`robots`/`noindex` keep the site out of search results but do not stop anyone
+with the link from opening it. To require a login/passcode:
+
+1. Cloudflare dashboard → **Zero Trust** → **Access** → **Applications** →
+   **Add an application** → **Self-hosted**.
+2. Application domain: the Worker's hostname
+   (`grad-path.venkatchinta-net.workers.dev`), or the custom domain once added.
+3. Add a policy: e.g. **Allow** by emails / email domain (an allow-list of
+   tester emails is simplest), or a one-time PIN.
+4. Save. Testers now get an email OTP before reaching the app.
+
+Remove the Access application at public launch.
+
 ## Cloudflare Pages (recommended)
 
 One-time setup in the Cloudflare dashboard (Workers & Pages → Create → Pages →
