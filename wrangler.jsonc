@@ -12,7 +12,7 @@
   //   npm run build --workspace=apps/demo
   // Deploy command (dashboard default works as-is):
   //   npx wrangler deploy
-  "name": "gradpath",
+  "name": "grad-path",
   "compatibility_date": "2026-07-01",
   "assets": {
     "directory": "./apps/demo/dist"
