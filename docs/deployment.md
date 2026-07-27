@@ -13,6 +13,25 @@ not classic Pages. It builds with `npm run build --workspace=apps/demo` and
 deploys with `npx wrangler deploy`, which reads the root `wrangler.jsonc` and
 publishes `apps/demo/dist` as a static-assets Worker (honoring `_headers`).
 
+### Does merging to `main` auto-publish?
+
+Yes — with automatic deployments enabled on the production branch (the default
+for a Git-connected Workers project), every merge to `main` triggers a fresh
+build + `wrangler deploy`. Caveats:
+
+- **Only on a green build.** If the build fails, the deploy is skipped and the
+  previous version stays live (the site is never taken down, just not updated).
+- **Not instant.** Builds take ~1-2 minutes; the endpoint serves the old bundle
+  until the new one finishes.
+- **Verify a deploy landed:** load the live URL and confirm the latest visible
+  change is present, or check the Workers project → **Deployments** tab for the
+  build matching your merge commit. To force one, use **Retry** / **Create
+  deployment** there.
+- **No per-PR previews.** Because this is Workers (not classic Pages), only
+  `main` auto-deploys; PRs do not get preview URLs. Switching to a classic Pages
+  project would add those (see below) — useful once a pilot is live and changes
+  need testing before hitting the beta.
+
 **Beta lockdown (in effect):** the app ships `robots.txt` (Disallow: /), a
 `noindex, nofollow` meta tag, and an `X-Robots-Tag: noindex` header, plus a
 "Private beta" banner in the UI. Search engines are told not to index the site
