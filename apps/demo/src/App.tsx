@@ -166,6 +166,16 @@ export function App() {
           uploaded, stored on a server, or shared. Free, nonprofit, open source —
           never sold to institutions.
         </p>
+        <p>
+          <a
+            className="feedback-link"
+            href="https://github.com/venkatchinta/grad-path/issues/new?labels=beta-feedback&title=Beta%20feedback"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Send beta feedback
+          </a>
+        </p>
       </footer>
     </div>
   );

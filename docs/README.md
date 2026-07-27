@@ -25,3 +25,11 @@ references (SAVE plan wind-down, IDR phase-out by 2028, RAP launch July 1, 2026)
 - [Production Plan](./production-plan.md) — phase gates from deployable MVP to
   launched product: infra, private beta with expert review, public launch,
   post-launch roadmap, standing operations, risk register.
+
+## Trackers
+
+- [Master TODO](./TODO.md) — the single actionable checklist for all pending
+  work toward the goal, tagged by owner (code / dashboard / legal / expert /
+  partner) and prioritized P0 → P2, plus standing tasks and known limitations.
+- [Deployment](./deployment.md) — live URL, build/deploy settings, and the
+  Cloudflare Access beta-gating steps.

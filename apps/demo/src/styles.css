@@ -655,6 +655,10 @@ button.ghost {
   padding: 0.3rem 0.2rem;
 }
 
+.feedback-link {
+  color: var(--good-text);
+  font-weight: 600;
+}
 .privacy-footer {
   padding: 0.5rem 1rem calc(1rem + env(safe-area-inset-bottom));
   font-size: 0.75rem;
