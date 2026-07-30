@@ -59,6 +59,27 @@ body {
   flex-direction: column;
 }
 
+/* Skip link (keyboard/screen-reader users) */
+.skip-link {
+  position: absolute;
+  left: 0.5rem;
+  top: -3rem;
+  z-index: 100;
+  background: var(--brand);
+  color: var(--brand-ink);
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  transition: top 0.15s ease;
+}
+.skip-link:focus {
+  top: 0.5rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .skip-link {
+    transition: none;
+  }
+}
+
 /* Beta banner */
 .beta-banner {
   background: #7c2d12;
@@ -664,4 +685,73 @@ button.ghost {
   font-size: 0.75rem;
   color: var(--muted);
   text-align: center;
+}
+.footer-links {
+  display: flex;
+  gap: 1.25rem;
+  justify-content: center;
+}
+.footer-links .inline-link,
+.footer-links .feedback-link {
+  display: inline;
+}
+
+/* About & Methodology */
+.principles {
+  padding-left: 1.1rem;
+  font-size: 0.9rem;
+}
+.principles li {
+  margin: 0.5rem 0;
+}
+
+/* Results toolbar (print / copy) */
+.result-toolbar {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin: 0.5rem 0 0.25rem;
+}
+.result-toolbar button {
+  font-size: 0.85rem;
+  min-height: 40px;
+  padding: 0.4rem 0.8rem;
+}
+
+/* Print: clean, single-column, chrome removed */
+@media print {
+  .beta-banner,
+  .masthead,
+  .stepper,
+  .privacy-footer,
+  .skip-link,
+  .no-print,
+  .actions {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #000;
+  }
+  .app {
+    max-width: none;
+  }
+  .card {
+    border: 0;
+    padding: 0;
+  }
+  .plan-tiles {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .plan-tile,
+  .card {
+    break-inside: avoid;
+  }
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+  details {
+    display: none;
+  }
 }

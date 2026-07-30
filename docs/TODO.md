@@ -75,8 +75,15 @@ loan/eligibility numbers.
 - [ ] `[code]` Accessibility audit to WCAG 2.1 AA (screen-reader pass on all
       screens; meters/tables already have ARIA — needs a real audit).
 - [ ] `[code]` Lighthouse ≥ 90 mobile (perf / a11y / PWA).
-- [ ] `[code]` Content pages: About, **Methodology** (every number + its
-      citation), FAQ.
+- [x] `[code]` Content pages: **About + Methodology** (every number + its
+      citation, auto-generated from the engine). FAQ still pending.
+- [x] `[code]` Accessibility: skip-link, `<main>` landmark, reduced-motion
+      (full WCAG audit / screen-reader pass still pending).
+- [x] `[code]` Print / Save-as-PDF styling + "copy summary" on Repay results.
+- [ ] `[code+data]` **SAI estimator** (Afford): deferred — needs the official
+      FAFSA Simplification Act allowance tables (income protection allowances,
+      asset conversion rates). Same citation constraint as the poverty figures;
+      will not ship fabricated constants. Provide/confirm the tables to unblock.
 - [ ] `[dash]` Privacy-respecting analytics (Plausible/Umami) on landing/results
       funnels only — never data-entry pages.
 - [ ] `[dash]` Uptime monitoring + status contact.
