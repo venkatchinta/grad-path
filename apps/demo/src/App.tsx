@@ -5,6 +5,7 @@ import { AffordStage } from "./stages/AffordStage.js";
 import { RepayStage } from "./stages/RepayStage.js";
 import { AuthScreen } from "./stages/AuthScreen.js";
 import { FamilyStage } from "./stages/FamilyStage.js";
+import { AboutStage } from "./stages/AboutStage.js";
 import {
   clearState,
   loadState,
@@ -23,6 +24,7 @@ const STAGE_TAGLINES: Record<Stage, string> = {
   repay: "Repay — repayment screening",
   auth: "Your account",
   family: "Family tracking",
+  about: "About & how it works",
 };
 
 const APPLY_TOTAL = 15;
@@ -52,6 +54,9 @@ export function App() {
 
   return (
     <div className="app">
+      <a className="skip-link" href="#main-content">
+        Skip to main content
+      </a>
       <div className="beta-banner" role="note">
         <strong>Private beta.</strong> These are screening estimates under expert
         review — not financial advice or an official determination. Always verify
@@ -84,7 +89,7 @@ export function App() {
         </div>
       </header>
 
-      <main>
+      <main id="main-content">
         {state.stage === "home" && (
           <>
             <Home onSelect={setStage} />
@@ -158,6 +163,7 @@ export function App() {
             onStartOver={startOver}
           />
         )}
+        {state.stage === "about" && <AboutStage />}
       </main>
 
       <footer className="privacy-footer">
@@ -166,7 +172,10 @@ export function App() {
           uploaded, stored on a server, or shared. Free, nonprofit, open source —
           never sold to institutions.
         </p>
-        <p>
+        <p className="footer-links">
+          <button type="button" className="inline-link" onClick={() => setStage("about")}>
+            About &amp; how it works
+          </button>
           <a
             className="feedback-link"
             href="https://github.com/venkatchinta/grad-path/issues/new?labels=beta-feedback&title=Beta%20feedback"

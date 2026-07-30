@@ -5,7 +5,7 @@ import type {
   ParsedLoan,
 } from "@gradpath/engine";
 
-export type Stage = "home" | "apply" | "afford" | "repay" | "auth" | "family";
+export type Stage = "home" | "apply" | "afford" | "repay" | "auth" | "family" | "about";
 
 export type Role = "student" | "parent";
 export type Provider = "google" | "apple";

@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { recommend, summarizeLoans, type ParsedLoan } from "@gradpath/engine";
 import { fmtUsd, type Profile } from "../state.js";
 
@@ -35,10 +35,54 @@ export function ResultsStep(props: {
   }, [profile, loans]);
 
   const pslf = result.pslf;
+  const [copied, setCopied] = useState(false);
+
+  const buildSummary = () => {
+    const lines = [
+      "GradPath — repayment screening (estimate, not advice)",
+      "",
+      "Estimated monthly payment by plan:",
+      ...result.plans.map(
+        (p) =>
+          `  - ${p.label}: ${fmtUsd(p.monthlyPayment)}/mo` +
+          (p.plan === result.lowestPaymentPlan ? " (lowest)" : ""),
+      ),
+    ];
+    if (pslf) {
+      lines.push(
+        "",
+        pslf.eligible
+          ? `PSLF: screens eligible — ${pslf.qualifyingPayments} of 120 payments, ${pslf.paymentsRemaining} to go.`
+          : "PSLF: blockers found — see the app for details.",
+      );
+    }
+    lines.push("", "Next steps:", ...result.nextSteps.map((s) => `  - ${s}`));
+    lines.push("", "Verify with your servicer and StudentAid.gov.");
+    return lines.join("\n");
+  };
+
+  const copySummary = async () => {
+    try {
+      await navigator.clipboard.writeText(buildSummary());
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* clipboard unavailable (e.g. insecure context) — no-op */
+    }
+  };
 
   return (
     <div className="card">
       <h1>Your options</h1>
+
+      <div className="result-toolbar no-print">
+        <button type="button" onClick={() => window.print()}>
+          🖨️ Print / Save as PDF
+        </button>
+        <button type="button" onClick={copySummary}>
+          {copied ? "✓ Copied" : "📋 Copy summary"}
+        </button>
+      </div>
 
       {result.escalations.length > 0 && (
         <section className="escalations" role="alert">
