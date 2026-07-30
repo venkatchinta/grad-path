@@ -1,0 +1,4 @@
+# Normalize line endings: store text as LF in the repo, regardless of the OS
+# a contributor uses. This stops Windows checkouts from flagging every file as
+# "modified" (CRLF vs LF). Git auto-detects binary files and leaves them alone.
+* text=auto eol=lf
