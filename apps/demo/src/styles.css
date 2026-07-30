@@ -1,38 +1,66 @@
-/* Mobile-first, ledger-style UI. Light/dark from the same token set. */
+/* Mobile-first, ledger-style UI.
+ *
+ * THEMING
+ * -------
+ * Components are styled only through the design tokens below (--brand, --page,
+ * --text, ...). A theme is one block that defines those tokens with the CSS
+ * light-dark() function, so a single declaration carries BOTH the light and
+ * dark value; the browser resolves it from the element's `color-scheme`.
+ *
+ * - Palette is chosen by `data-theme` on <html> (default = professional).
+ * - Light/dark/system is chosen by `color-scheme` on <html> (set from JS:
+ *   "light dark" follows the OS; "light" or "dark" forces a mode).
+ *
+ * To add a theme later: copy one [data-theme="..."] block, swap the values,
+ * and register it in theme.ts. Nothing else changes. */
 
 :root {
-  --brand: #14532d;
-  --brand-ink: #f8faf8;
-  --surface: #fcfcfb;
-  --page: #f9f9f7;
-  --text: #0b0b0b;
-  --text-2: #52514e;
-  --muted: #898781;
-  --hairline: #e1e0d9;
-  --border: rgba(11, 11, 11, 0.1);
-  --good: #0ca30c;
-  --good-text: #006300;
-  --alert-bg: #fbeeee;
-  --alert-border: #d03b3b;
-  --chip-bg: #e7f4e7;
+  color-scheme: light dark;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --brand: #14532d;
-    --surface: #1a1a19;
-    --page: #0d0d0d;
-    --text: #ffffff;
-    --text-2: #c3c2b7;
-    --muted: #898781;
-    --hairline: #2c2c2a;
-    --border: rgba(255, 255, 255, 0.1);
-    --good: #0ca30c;
-    --good-text: #0ca30c;
-    --alert-bg: #2a1717;
-    --alert-border: #d03b3b;
-    --chip-bg: #14361f;
-  }
+/* Professional Blue (default) */
+:root,
+[data-theme="professional"] {
+  --brand: light-dark(#1a56c4, #2f6fe0);
+  --brand-ink: #ffffff;
+  --header-bg: light-dark(#1a56c4, #16273f);
+  --header-ink: #ffffff;
+  --surface: light-dark(#ffffff, #131f30);
+  --page: light-dark(#f4f7fc, #0b1220);
+  --text: light-dark(#0e1b2e, #eef4fb);
+  --text-2: light-dark(#4b5c72, #aab8cc);
+  --muted: light-dark(#7f8ea2, #6f8097);
+  --hairline: light-dark(#e4eaf3, #24334a);
+  --border: light-dark(rgba(14, 27, 46, 0.1), rgba(255, 255, 255, 0.12));
+  --good: light-dark(#0f9d58, #34c07a);
+  --good-text: light-dark(#0b7a43, #57d093);
+  --alert-bg: light-dark(#fdecec, #331b1b);
+  --alert-border: light-dark(#d64545, #e06666);
+  --chip-bg: light-dark(#e7f0ff, #172a44);
+  --banner-bg: light-dark(#9a3412, #7c2d12);
+  --banner-ink: #fff7ed;
+}
+
+/* Forest Green (alternate) — the original palette, kept to exercise the system */
+[data-theme="forest"] {
+  --brand: light-dark(#14532d, #2f9d63);
+  --brand-ink: #ffffff;
+  --header-bg: light-dark(#14532d, #14361f);
+  --header-ink: #f8faf8;
+  --surface: light-dark(#fcfcfb, #1a1a19);
+  --page: light-dark(#f9f9f7, #0d0d0d);
+  --text: light-dark(#0b0b0b, #ffffff);
+  --text-2: light-dark(#52514e, #c3c2b7);
+  --muted: light-dark(#898781, #898781);
+  --hairline: light-dark(#e1e0d9, #2c2c2a);
+  --border: light-dark(rgba(11, 11, 11, 0.1), rgba(255, 255, 255, 0.1));
+  --good: light-dark(#0ca30c, #0ca30c);
+  --good-text: light-dark(#006300, #34c07a);
+  --alert-bg: light-dark(#fbeeee, #2a1717);
+  --alert-border: light-dark(#d03b3b, #d03b3b);
+  --chip-bg: light-dark(#e7f4e7, #14361f);
+  --banner-bg: light-dark(#8a3311, #7c2d12);
+  --banner-ink: #fff7ed;
 }
 
 * {
@@ -82,8 +110,8 @@ body {
 
 /* Beta banner */
 .beta-banner {
-  background: #7c2d12;
-  color: #fff7ed;
+  background: var(--banner-bg);
+  color: var(--banner-ink);
   font-size: 0.78rem;
   line-height: 1.4;
   padding: 0.5rem 1rem;
@@ -95,8 +123,8 @@ body {
 
 /* Masthead */
 .masthead {
-  background: var(--brand);
-  color: var(--brand-ink);
+  background: var(--header-bg);
+  color: var(--header-ink);
   padding: env(safe-area-inset-top) 0 0;
 }
 .masthead-inner {
@@ -653,7 +681,7 @@ button.ghost {
 .checklist a {
   display: inline-block;
   font-size: 0.8rem;
-  color: var(--good-text);
+  color: var(--brand);
 }
 .inline-link {
   display: block;
@@ -661,7 +689,7 @@ button.ghost {
   background: none;
   padding: 0.2rem 0;
   min-height: 0;
-  color: var(--good-text);
+  color: var(--brand);
   font-size: 0.85rem;
   font-weight: 600;
   text-align: left;
@@ -677,7 +705,7 @@ button.ghost {
 }
 
 .feedback-link {
-  color: var(--good-text);
+  color: var(--brand);
   font-weight: 600;
 }
 .privacy-footer {
@@ -690,6 +718,64 @@ button.ghost {
   display: flex;
   gap: 1.25rem;
   justify-content: center;
+}
+
+/* Appearance controls */
+.theme-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 0.6rem;
+  margin-bottom: 0.4rem;
+  border-bottom: 1px solid var(--hairline);
+}
+.theme-select-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--text-2);
+}
+.theme-select-label select {
+  width: auto;
+  margin: 0;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.8rem;
+  min-height: 36px;
+}
+.mode-toggle {
+  display: inline-flex;
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.mode-toggle button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border: 0;
+  border-radius: 0;
+  background: var(--surface);
+  color: var(--text-2);
+  min-height: 36px;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.75rem;
+}
+.mode-toggle button + button {
+  border-left: 1px solid var(--hairline);
+}
+.mode-toggle button.active {
+  background: var(--brand);
+  color: var(--brand-ink);
+  font-weight: 600;
+}
+@media (max-width: 380px) {
+  .mode-toggle .mode-label {
+    display: none;
+  }
 }
 .footer-links .inline-link,
 .footer-links .feedback-link {

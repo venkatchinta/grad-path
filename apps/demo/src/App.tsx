@@ -6,6 +6,8 @@ import { RepayStage } from "./stages/RepayStage.js";
 import { AuthScreen } from "./stages/AuthScreen.js";
 import { FamilyStage } from "./stages/FamilyStage.js";
 import { AboutStage } from "./stages/AboutStage.js";
+import { ThemeControls } from "./ThemeControls.js";
+import { loadAppearance, type Appearance } from "./theme.js";
 import {
   clearState,
   loadState,
@@ -31,6 +33,7 @@ const APPLY_TOTAL = 15;
 
 export function App() {
   const [state, setState] = useState<AppState>(loadState);
+  const [appearance, setAppearance] = useState<Appearance>(loadAppearance);
 
   useEffect(() => {
     saveState(state);
@@ -167,6 +170,7 @@ export function App() {
       </main>
 
       <footer className="privacy-footer">
+        <ThemeControls appearance={appearance} onChange={setAppearance} />
         <p>
           🔒 Everything runs on your device. Your financial information is never
           uploaded, stored on a server, or shared. Free, nonprofit, open source —
